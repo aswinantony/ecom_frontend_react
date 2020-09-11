@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 import { getProducts } from "./helper/coreapicalls"
 
-export default function Home() {
+import Base from "./Base";
 
+import "../styles.css";
+
+export default function Home() {
     const [products, setProducts] = useState([]);
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
 
     const loadAllProducts = () => {
         getProducts()
-            .then(data => {
+            .then((data) => {
                 if (data.error) {
-                    setError(data.error)
-                    console.log(error)
+                    setError(data.error);
+                    console.log(error);
                 } else {
                     setProducts(data);
                 }
@@ -24,17 +27,19 @@ export default function Home() {
     }, []);
 
     return (
-        <div>
-            <h1>Home component</h1>
-            <div className="row">
-                {products.map((product, index) => {
-                    return (
-                        <div key={index}>
-                            <h1>{product.name}</h1>
-                        </div>
-                    )
-                })}
+        <Base title="Home Page" description="Welcome Home">
+            <div>
+                <h1>Home component</h1>
+                <div className="row">
+                    {products.map((product, index) => {
+                        return (
+                            <div key={index}>
+                                <h1>{product.name}</h1>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+        </Base>
     );
 }
