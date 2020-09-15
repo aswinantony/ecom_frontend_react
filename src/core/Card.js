@@ -1,6 +1,10 @@
 import React from 'react';
 
 import ImageHelper from "./helper/ImageHelper";
+import { Redirect } from "react-router-dom"
+
+//TODO: Deal with this later
+const isAuthenticated = false;
 
 const Card = ({
     product,
@@ -13,6 +17,49 @@ const Card = ({
     const cartDescription = product ? product.description : "Desc missing"
     const cartPrice = product ? product.price : "Price missing"
 
+    const addToCart = () => {
+        if (isAuthenticated) {
+            console.log("Added to Cart")
+        } else {
+            console.log("Login First")
+        }
+    };
+
+    const getAredirect = redirect => {
+        if (redirect) {
+            return <Redirect to="/cart" />;
+        }
+    }
+
+    const showAddToCart = addToCart => {
+        return (
+            addToCart && (
+                <button
+                    onClick={addToCart}
+                    className="btn btn-block btn-outline-success mt-2 mb-2"
+                >
+                    Add to Cart
+                </button>
+            )
+        )
+    }
+
+    const showRemoveFromCart = removeFromCart => {
+        return (
+            removeFromCart && (
+                <button
+                    onClick={() => {
+                        //TODO: To be handled
+                        console.log("Product Removed from Cart")
+                    }}
+                    className="btn btn-block btn-outline-danger mt-2 mb-2"
+                >
+                    Remove from cart
+                </button>
+            )
+        )
+    }
+
     return (
         <div className="card text-white bg-dark border border-info ">
             <div className="card-header lead">{cartTitle}</div>
@@ -24,20 +71,10 @@ const Card = ({
                 <p className="btn btn-success rounded  btn-sm px-4">$ {cartPrice}</p>
                 <div className="row">
                     <div className="col-12">
-                        <button
-                            onClick={() => { }}
-                            className="btn btn-block btn-outline-success mt-2 mb-2"
-                        >
-                            Add to Cart
-              </button>
+                        {showAddToCart(addToCart)}
                     </div>
                     <div className="col-12">
-                        <button
-                            onClick={() => { }}
-                            className="btn btn-block btn-outline-danger mt-2 mb-2"
-                        >
-                            Remove from cart
-              </button>
+                        {showRemoveFromCart(removeFromCart)}
                     </div>
                 </div>
             </div>
