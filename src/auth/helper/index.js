@@ -5,10 +5,10 @@ export const signup = user => {
     return fetch(`${API}user/`, {
         method: "POST",
         headers: {
-            Accept: "application/json"
-            "Content-type": "application/json"
+            Accept: "application/json",
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
     })
         .then(response => {
             return response.json();
@@ -24,8 +24,8 @@ export const signin = user => {
     }
 
     return fetch(`${API}user/login/`, {
-        method: "POST"
-        body: FormData
+        method: "POST",
+        body: formData,
     })
         .then(response => {
             return response.json();
@@ -52,7 +52,7 @@ export const isAuthenticated = () => {
 };
 
 export const signout = next => {
-    const userID = isAuthenticated() && isAuthenticated().user.id
+    const userId = isAuthenticated() && isAuthenticated().user.id;
 
     if (typeof window !== undefined) {
         localStorage.removeItem("jwt")
