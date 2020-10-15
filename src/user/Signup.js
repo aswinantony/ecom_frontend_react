@@ -49,6 +49,36 @@ const Signup = () => {
             .catch((e) => console.log(e));
     };
 
+    const successMessage = () => {
+        return (
+            <div className='row'>
+                <div className='col-md-6 offset-sm-3 text-left'>
+                    <div
+                        className='alert alert-success'
+                        style={{ display: success ? "" : "none" }}
+                    >
+                        New account created successfully. Please <Link to="/signin">login now</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const errorMessage = () => {
+        return (
+            <div className='row'>
+                <div className='col-md-6 offset-sm-3 text-left'>
+                    <div
+                        className='alert alert-danger'
+                        style={{ display: error ? "" : "none" }}
+                    >
+                        Check all credentials entered again.
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     const signUpForm = () => {
         return (
             <div className="row">
@@ -71,7 +101,7 @@ const Signup = () => {
                                 type="text" />
                         </div>
                         <div className="form-group">
-                            <label className="text-light">Email</label>
+                            <label className="text-light">Password</label>
                             <input
                                 className="form-control"
                                 value={password}
@@ -89,6 +119,8 @@ const Signup = () => {
 
     return (
         <Base title="Signup Page" description="A Signup for LCO User">
+            {successMessage()}
+            {errorMessage()}
             {signUpForm()}
             <p className="text-white text-center">
                 {JSON.stringify(values)}
